@@ -4,21 +4,19 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import GalleryScroller from '../../../components/GalleryScroller'
 
-// ✅ Typing van route params
-type Props = {
+// ✅ Dit is belangrijk: server-side type
+export type Props = {
   params: {
     category: 'concerts' | 'events' | 'misc' | 'all'
   }
 }
 
-// ✅ Metadata per pagina
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
-    title: `Portfolio - ${params.category}`,
+    title: `Portfolio – ${params.category}`,
   }
 }
 
-// ✅ Pagina zelf
 export default function PortfolioPage({ params }: Props) {
   const validCategories = ['concerts', 'events', 'misc', 'all']
   const category = params.category
