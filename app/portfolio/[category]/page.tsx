@@ -4,10 +4,11 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import GalleryScroller from '../../../components/GalleryScroller'
 
-// ✅ Dit is belangrijk: server-side type
-export type Props = {
+type Category = 'concerts' | 'events' | 'misc' | 'all'
+
+type Props = {
   params: {
-    category: 'concerts' | 'events' | 'misc' | 'all'
+    category: Category
   }
 }
 
@@ -18,12 +19,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function PortfolioPage({ params }: Props) {
-  const validCategories = ['concerts', 'events', 'misc', 'all']
-  const category = params.category
+  const validCategories: Category[] = ['concerts', 'events', 'misc', 'all']
 
-  if (!validCategories.includes(category)) {
+  if (!validCategories.includes(params.category)) {
     notFound()
   }
 
-  return <GalleryScroller category={category} />
+  return <GalleryScroller category={params.category} />
 }
