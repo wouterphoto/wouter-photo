@@ -1,5 +1,3 @@
-// app/portfolio/[category]/page.tsx
-
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import GalleryScroller from '../../../components/GalleryScroller'
@@ -21,5 +19,9 @@ export default function PortfolioPage(
     notFound()
   }
 
-  return <GalleryScroller category={params.category as 'concerts' | 'events' | 'misc' | 'all'} />
+  return (
+    <GalleryScroller
+      category={params.category as 'concerts' | 'events' | 'misc' | 'all'}
+    />
+  )
 }
