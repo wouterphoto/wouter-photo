@@ -1,25 +1,31 @@
-import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
-import GalleryScroller from '../../../components/GalleryScroller';
+// app/portfolio/[category]/page.tsx
 
-export async function generateMetadata(
-  context: any
-): Promise<Metadata> {
-  const category = context?.params?.category;
-  return {
-    title: `Portfolio - ${category}`,
-  };
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
+import GalleryScroller from '../../../components/GalleryScroller'
+
+// ✅ Typing van route params
+type Props = {
+  params: {
+    category: 'concerts' | 'events' | 'misc' | 'all'
+  }
 }
 
-export default function PortfolioPage(
-  context: any
-) {
-  const category = context?.params?.category;
+// ✅ Metadata per pagina
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  return {
+    title: `Portfolio - ${params.category}`,
+  }
+}
 
-  const validCategories = ['concerts', 'events', 'misc', 'all'];
+// ✅ Pagina zelf
+export default function PortfolioPage({ params }: Props) {
+  const validCategories = ['concerts', 'events', 'misc', 'all']
+  const category = params.category
+
   if (!validCategories.includes(category)) {
-    notFound();
+    notFound()
   }
 
-  return <GalleryScroller category={category} />;
+  return <GalleryScroller category={category} />
 }
